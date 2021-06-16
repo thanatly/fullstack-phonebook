@@ -3,14 +3,15 @@ const app = express()
 const morgan = require('morgan')
 
 app.use(express.json())
-
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :data'))
 
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
 }
 
-//app.use(morgan('tiny'))
-app.use(morgan(':method :status :res[content-length] - :response-time ms'))
+morgan.token('data', function (req, res) { 
+  return JSON.stringify(req.body) 
+})
 
 let persons = [
   {
@@ -98,13 +99,14 @@ app.post('/api/persons', (request, response) => {
 
   const person = {
     name: body.name,
-    number: body.number || false,
+    number: body.number,
     id: generateId(),
   }
 
   persons = persons.concat(person)
 
   response.json(person)
+
 })
 
 app.use(unknownEndpoint)

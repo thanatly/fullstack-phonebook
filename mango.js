@@ -14,12 +14,12 @@ const url =
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
 
-const noteSchema = new mongoose.Schema({
+const contactSchema = new mongoose.Schema({
   name: String,
   number: String,
 })
 
-const Contact = mongoose.model('Contact', noteSchema)
+const Contact = mongoose.model('Contact', contactSchema)
 
 const contact = new Contact({
   name: name,

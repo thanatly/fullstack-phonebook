@@ -47,7 +47,7 @@ app.delete('/api/persons/:id', (request, response) => {
     response.status(204).end()
   })
 })
-s
+
 app.post('/api/persons', (request, response) => {
   const body = request.body
 

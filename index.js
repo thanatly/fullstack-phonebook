@@ -9,7 +9,7 @@ const cors = require('cors')
 app.use(cors())
 app.use(express.static('build'))
 
-const Contact = require('./models/contact')
+const Person = require('./models/person')
 
 
 const unknownEndpoint = (request, response) => {
@@ -30,19 +30,19 @@ app.get('/info', (request, response) => {
 })
 
 app.get('/api/persons', (request, response) => {
-  Contact.find({}).then(contacts => {
-    response.json(contacts)
+  Person.find({}).then(persons => {
+    response.json(persons)
   })
 })
 
 app.get('/api/persons/:id', (request, response) => {
-  Contact.findById(request.params.id).then(contact =>
-    response.json(contact)
+  Person.findById(request.params.id).then(person =>
+    response.json(person)
   )
 })
 
 app.delete('/api/persons/:id', (request, response) => {
-  Contact.findByIdAndRemove(request.params.id)
+  Person.findByIdAndRemove(request.params.id)
   .then(result => {
     response.status(204).end()
   })
@@ -64,13 +64,13 @@ app.post('/api/persons', (request, response) => {
   }
 
   // Need to prevent name duplication
-  const contact = new Contact({
+  const person = new Person({
     name: body.name,
     number: body.number,
   })
 
-  contact.save().then(savedContact => {
-    response.json(savedContact)
+  person.save().then(savedPerson => {
+    response.json(savedPerson)
   })
 
 })

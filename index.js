@@ -72,8 +72,6 @@ app.post('/api/persons', (request, response, next) => {
       error: 'number missing' 
     })
   }
-
-
   const person = new Person({
     name: body.name,
     number: body.number,

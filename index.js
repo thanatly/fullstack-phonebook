@@ -10,6 +10,7 @@ const cors = require('cors')
 app.use(cors())
 
 const Person = require('./models/person')
+const person = require('./models/person')
 
 morgan.token('data', function (req, res) { 
   return JSON.stringify(req.body) 
@@ -20,8 +21,15 @@ app.get('/', (request, response) => {
 })
 
 app.get('/info', (request, response) => {
-  response.send(`<div>Phonebook has info for ${persons.length} people<\div>
+  person
+    .estimatedDocumentCount()
+    .then(count => {
+        console.log(count)
+        response.send(`<div>Phonebook has info for ${count} people<\div>
     <div>${new Date()}<\div>`)
+    })
+    .catch(err => {
+    })
 })
 
 app.get('/api/persons', (request, response) => {

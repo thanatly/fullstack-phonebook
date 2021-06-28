@@ -1,7 +1,8 @@
-const mongoose = require('mongoose')
+/* eslint-disable no-undef */
+const mongoose = require("mongoose")
 
 if (process.argv.length < 3) {
-  console.log('Please provide the password as an argument: node mongo.js <password>')
+  console.log("Please provide the password as an argument: node mongo.js <password>")
   process.exit(1)
 }
 
@@ -19,14 +20,14 @@ const contactSchema = new mongoose.Schema({
   number: String,
 })
 
-const Contact = mongoose.model('Contact', contactSchema)
+const Contact = mongoose.model("Contact", contactSchema)
 
 const contact = new Contact({
   name: name,
   number: number,
 })
 
-contact.save().then(result => {
+contact.save().then(() => {
   console.log("added " +name+ " number "+number+" to phonebook")
   mongoose.connection.close()
 })
